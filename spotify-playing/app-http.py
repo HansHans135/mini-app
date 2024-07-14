@@ -1,13 +1,14 @@
 from flask import Flask, redirect, url_for, session, jsonify
 from flask import request
 import spotipy
+import json
 from spotipy.oauth2 import SpotifyOAuth
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
-app.config['SESSION_COOKIE_NAME'] = 'token'
+app.config['SESSION_COOKIE_NAME'] = 'token_info'
 
-SETTING=open("setting.json")
+SETTING=json.load(open("setting.json"))
 # Spotify API 設置
 client_id = SETTING["client_id"]
 client_secret = SETTING["client_secret"]
@@ -139,7 +140,7 @@ def index():
                 } else {
                     trackName.innerHTML = '目前沒有曲目正在播放';
                     artistName.innerHTML = '';
-                    albumCover.src = '';
+                    albumCover.src = 'https://play-lh.googleusercontent.com/IHoystBSDWqQJ705ZUYRK8Jb5trzQnem6FpWY2Z1dfbgCGITJSlJ5z0jRVQSeibycOw';
                     progressBar.value = 0;
                     currentTime.innerHTML = '0:00';
                     durationTime.innerHTML = '0:00';
@@ -207,4 +208,4 @@ def callback():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8888)
+    app.run(debug=True,host="0.0.0.0", port=25731)
